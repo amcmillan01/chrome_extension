@@ -1,7 +1,7 @@
 {
   "name": "Extension_1",
   "description": "My First Chrome Extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "icons": {
     "32": "logo.png",
