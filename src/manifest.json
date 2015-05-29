@@ -1,0 +1,31 @@
+{
+  "name": "Extension_1",
+  "description": "My First Chrome Extension",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "icons": {
+    "32": "logo.png",
+    "48": "logo.png"
+  },
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+      ],
+      "css": []
+    }
+  ],
+  "web_accessible_resources": [
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "chrome_extension",
+  "version": "0.0.1",
+  "scripts": {
+    "lint": "echo 'do some linting'",
+    "test": "echo 'run unit test'"
+  }
+}
