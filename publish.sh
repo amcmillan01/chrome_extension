@@ -1,7 +1,16 @@
+
 curl \
--H "Authorization: Bearer 4/hPtVoct8DQ9mXPn7s5Gf2K-xJMkCk1eHJ35F6nE-poM.4gvsMDn2Hwoa3oEBd8DOtNCR89U7mwI"  \
+-H "Authorization: Bearer $TOKEN"  \
 -H "x-goog-api-version: 2" \
 -X PUT \
 -T src.zip \
--v \
-https://www.googleapis.com/upload/chromewebstore/v1.1/items/lcldgjakanbfmdgleoekbbelmaikolck
+-s \
+https://www.googleapis.com/upload/chromewebstore/v1.1/items/$APP_ID
+
+curl \
+-H "Authorization: Bearer $TOKEN"  \
+-H "x-goog-api-version: 2" \
+-H "Content-Length: 0" \
+-X POST \
+-s \
+https://www.googleapis.com/chromewebstore/v1.1/items/$APP_ID/publish

@@ -1,9 +1,9 @@
 {
   "name": "chrome_extension",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "scripts": {
     "lint": "echo 'do some linting'",
     "test": "echo 'run unit test'",
-    "publish": "hostname && zip -r src.zip src && sh publish.sh"
+    "publish": "node set_version.js && zip -r src.zip src && sh publish.sh"
   }
 }

@@ -1,8 +1,10 @@
 {
   "name": "Extension_1",
   "description": "My First Chrome Extension",
-  "version": "0.0.2",
+  "version": "<version is set at build time>",
   "manifest_version": 2,
+  "author": "Andrei McMillan <amcmillan@yieldbot.com>",
+  "homepage_url": "https://github.com/amcmillan01/chrome_extension",
   "icons": {
     "32": "logo.png",
     "48": "logo.png"
