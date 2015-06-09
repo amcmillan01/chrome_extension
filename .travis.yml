@@ -10,7 +10,7 @@ notifications:
   email:
     recipients:
       - amcmillan@yieldbot.com
-    on_success: change
+    on_success: always
     on_failure: always
 
 script:

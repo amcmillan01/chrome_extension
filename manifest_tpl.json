@@ -1,9 +1,9 @@
 {
-  "name": "Extension_1",
-  "description": "My First Chrome Extension",
-  "version": "<version is set at build time>",
+  "name": "<set at build time>",
+  "description": "<set at build time>",
+  "version": "<set at build time>",
   "manifest_version": 2,
-  "author": "Andrei McMillan <amcmillan@yieldbot.com>",
+  "author": "<set at build time>",
   "homepage_url": "https://github.com/amcmillan01/chrome_extension",
   "icons": {
     "32": "logo.png",
@@ -12,11 +12,13 @@
   "permissions": [
     "tabs",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "notifications"
   ],
   "background": {
-    "page": "background.html"
+    "page": "background.index.html"
   },
+  "devtools_page": "devtools.index.html",
   "content_scripts": [
     {
       "matches": [
@@ -24,6 +26,9 @@
         "https://*/*"
       ],
       "js": [
+        "content_script.index.js",
+        "lib/jquery-1.11.3.min.js",
+        "lib/lodash.min.js"
       ],
       "css": []
     }

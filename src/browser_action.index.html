@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Open Graph Info</title>
+    <style>
+      body {
+        padding: 1em;
+        background: #efefef;
+        width: 300px;
+      }
+      #url {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Get OpenGraph Info</h3>
+    <form id="og-form">
+      <input type="url" id="url" name="url" value="https://www.yieldbot.com/">
+    </form>
+    <pre id="result"></pre>
+    <script src="../lib/jquery-1.11.3.min.js"></script>
+    <script src="./browser_action.index.js"></script>
+  </body>
+</html>
