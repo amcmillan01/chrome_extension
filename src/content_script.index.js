@@ -1,31 +1,40 @@
 /**
  * chrome_extension
  * Copyright (c) 2015 Yieldbot, Inc. - All rights reserved.
+ *
+ * extracts open graph info from the current page
  */
 
 'use strict';
 
-console.log('loaded');
+/**
+ *
+ * @param {string} key
+ * @return {string}
+ */
+var getMetaValue = function (key) {
+  var val = $('meta[name="' + key + '"]').attr('content');
+  if (_.isEmpty(val)) {
+    val = $('meta[property="' + key + '"]').attr('content');
+  }
 
+  if (!_.isUndefined(val)) {
+    val = val.trim();
+  }
+
+  return val;
+};
+
+// listens from requests coming from the page_action script
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log('[r]', request);
-  if (request.message && request.message =='page_og_data') {
+  if (request.option && request.option === 'page_og_data') {
     var ogData = {};
+
+    // get all the meta tags
     var metaTags = $('meta[property]');
 
-    var getMetaValue = function (key) {
-      var val = $('meta[name="' + key + '"]').attr('content');
-      if (_.isEmpty(val)) {
-        val = $('meta[property="' + key + '"]').attr('content');
-      }
-
-      if (!_.isUndefined(val)){
-        val = val.trim();
-      }
-
-      return val;
-    };
-
+    // extract the open graph data
     _.each(metaTags, function (tag) {
       var prop = $(tag).attr('property');
       var name = $(tag).attr('name');
@@ -45,11 +54,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // fall back if not all the og data is available
     ogData.title = ogData.title || $('title').text().trim();
     ogData.description = ogData.description || getMetaValue('description');
-    //ogData._rnd = Date.now();
 
     console.log(ogData);
     sendResponse(ogData);
-
   }
+
+  // return true -- just incase `sendResponse` is wrapped within a callback
   return true;
 });
