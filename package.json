@@ -1,11 +1,14 @@
 {
   "name": "chrome_extension",
-  "description": "My First Chrome Extension",
+  "description": "Chrome Extension",
   "version": "0.0.5",
   "private": true,
   "author": "Andrei McMillan <amcmillan@yieldbot.com>",
   "scripts": {
-    "lint": "jshint src/**/*.js",
+    "clean": "rm -fr node_modules tmp src.zip src/manifest.json",
+    "prepare": "npm install && mkdir -p tmp && npm run manifest:pa",
+    "start": "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --user-data-dir=./tmp --load-extension=./src --no-default-browser-check --no-first-run --remote-debugging-port=9007 about:blank http://localhost:9007",
+    "lint": "jshint src/*.js",
     "test": "mocha test",
     "manifest": "node create_manifest.js",
     "manifest:ba": "node create_manifest.js browser_action",
