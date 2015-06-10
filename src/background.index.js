@@ -6,20 +6,44 @@
 'use strict';
 
 //https://developer.chrome.com/extensions/notifications
+
+var senderPort = null;
 var notificationId = null;
 
 var options = {
-  type: 'basic', //"basic", "image", "list", or "progress"
+  type: 'list', //"basic", "image", "list", or "progress"
   iconUrl: '../logo-small.png',
-  title: 'Extension Name',
-  message: 'My extension is up and running...'
+  title: 'Chrome Extension',
+  items: [],
+  message: ''
 };
 
-var notify = function(msg){
-  options.message = msg;
-  chrome.notifications.create(null, options, function(wasUpdated){
-    console.log('[wasUpdated]', wasUpdated);
-  });
+var notify = function (msg) {
+
+  if (notificationId) {
+    options.items.push({
+      title: '',
+      message: msg
+    });
+
+    chrome.notifications.update(notificationId, options, function (wasUpdate) {
+      console.log('[wasUpdate]', wasUpdate);
+      console.log('[options]', options);
+    });
+  } else {
+
+    options.items = [{
+      title: '',
+      message: msg
+    }];
+
+    chrome.notifications.create(notificationId, options, function (id) {
+      notificationId = id;
+      console.log('[notificationId]', id);
+      console.log('[options]', options);
+    });
+  }
+
 };
 
 /**
@@ -29,14 +53,14 @@ var notify = function(msg){
  * @return {undefined}
  */
 var getOpenGraphData = function (url, cb) {
-
-  notify('fetching data for: ' + url);
+  notificationId = null;
+  notify(url);
 
   $.get(url).done(function (html) {
 
     var ogData = {};
     // an easy way to extra meta tags
-    var metaTags = html.match(/(<meta)([^>]+)(>)/g);;
+    var metaTags = html.match(/(<meta)([^>]+)(>)/g);
     notify(metaTags.length + ' meta tags found');
 
     _.each(metaTags, function (tag) {
@@ -65,21 +89,45 @@ var getOpenGraphData = function (url, cb) {
 
 // Listen for any changes to the URL of any tab.
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  if (chrome.pageAction && chrome.pageAction.show && tab.url.match(/.*/)) {
-    chrome.pageAction.show(tabId);
+  if (changeInfo.status === 'complete') {
+    console.log(changeInfo);
+
+    if (chrome.pageAction && chrome.pageAction.show && tab.url.match(/^(http(s)?)/)) {
+      chrome.pageAction.show(tabId);
+    }
+
+    if (senderPort && senderPort.postMessage) {
+      senderPort.postMessage({option: 'tab_updated'});
+    }
   }
+
 });
 
+// list for messages from content_script, page_action, and browser_action
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log('[request]', request, sender);
+
+  // handle request from browser_action
   if (request.option === 'og_data') {
     getOpenGraphData(request.url, sendResponse);
   }
+
   // return true since `sendResponse` is wrapped in a callback function
   return true;
 });
 
-//chrome.notifications.create(null, options, function(id){
-//  notificationId = id;
-//  console.log('[id]', notificationId);
-//});
+//on port connect - from devtools
+chrome.runtime.onConnect.addListener(function (port) {
+  senderPort = port;
+
+  // cleanup when the port is closed
+  senderPort.onDisconnect.addListener(function () {
+    console.log('devtool disconnected...');
+    senderPort = null;
+  });
+});
+
+// event handler for when the notification is closed
+chrome.notifications.onClosed.addListener(function () {
+  console.log('[close]', arguments);
+  notificationId = null;
+});

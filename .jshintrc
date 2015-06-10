@@ -16,5 +16,10 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "expr": true
+  "expr": true,
+  "globals": {
+    "_": true,
+    "$": true,
+    "chrome": true
+  }
 }

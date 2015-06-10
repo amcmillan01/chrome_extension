@@ -18,7 +18,7 @@
   "background": {
     "page": "background.index.html"
   },
-  "devtools_page": "devtools.index.html",
+  "devtools_page": "devtools.init.html",
   "content_scripts": [
     {
       "matches": [
@@ -33,6 +33,5 @@
       "css": []
     }
   ],
-  "web_accessible_resources": [
-  ]
+  "web_accessible_resources": []
 }
