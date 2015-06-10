@@ -4,7 +4,7 @@
 
 Get Open Graph information about a given url
 
-### The moving Parts
+### The Moving Parts
 
  - background script : a long lived process that runs in the background 
  - content script : allows you to interact with the current webpage
