@@ -6,6 +6,7 @@
   "author": "<set at build time>",
   "homepage_url": "https://github.com/amcmillan01/chrome_extension",
   "icons": {
+    "16": "logo-small.png",
     "32": "logo.png",
     "48": "logo.png"
   },
@@ -13,7 +14,8 @@
     "tabs",
     "http://*/*",
     "https://*/*",
-    "notifications"
+    "notifications",
+    "contextMenus"
   ],
   "background": {
     "page": "background.index.html"

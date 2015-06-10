@@ -8,6 +8,7 @@
     "clean": "rm -fr node_modules tmp src.zip src/manifest.json",
     "prepare": "npm install && mkdir -p tmp && npm run manifest:pa",
     "start": "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --user-data-dir=./tmp --load-extension=./src --no-default-browser-check --no-first-run --remote-debugging-port=9007 about:blank http://localhost:9007",
+    "boiler_plate": "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --user-data-dir=./tmp --load-extension=./boiler_plate --no-default-browser-check --no-first-run google.com",
     "lint": "jshint src/*.js",
     "test": "mocha test",
     "manifest": "node create_manifest.js",

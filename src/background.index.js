@@ -59,7 +59,7 @@ var getOpenGraphData = function (url, cb) {
   $.get(url).done(function (html) {
 
     var ogData = {};
-    // an easy way to extra meta tags
+    // an easy way to extract meta tags
     var metaTags = html.match(/(<meta)([^>]+)(>)/g);
     notify(metaTags.length + ' meta tags found');
 
@@ -130,4 +130,25 @@ chrome.runtime.onConnect.addListener(function (port) {
 chrome.notifications.onClosed.addListener(function () {
   console.log('[close]', arguments);
   notificationId = null;
+});
+
+//https://developer.chrome.com/extensions/contextMenus#method-create
+var contextMenuClick = function (info, tab) {
+  console.log('[context menu]', info, tab);
+  //send message to content script
+  chrome.tabs.sendMessage(tab.id, {option: 'select_text', value: info.selectionText}, function (res) {
+    notificationId = null;
+    notify(res);
+  });
+};
+
+var contextMenuOptions = {
+  title: 'Chrome Extension',
+  contexts: ['selection'],
+  onclick: contextMenuClick
+};
+
+//context menu add-on
+chrome.contextMenus.create(contextMenuOptions, function () {
+  console.log('[context menu]', 'created');
 });
