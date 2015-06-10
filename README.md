@@ -4,6 +4,8 @@
 
 Get Open Graph information about a given url
 
+### The moving Parts
+
  - background script : a long lived process that runs in the background 
  - content script : allows you to interact with the current webpage
  - dev tools : allows interaction with network resources status (404, 200, etc)
