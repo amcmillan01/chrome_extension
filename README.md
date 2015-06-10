@@ -1,6 +1,13 @@
-# chrome_extension
+#Chrome Extension
 
 <img src="https://travis-ci.org/amcmillan01/chrome_extension.svg?branch=master">
 
+### Requirements
 
-Boilerplate Chrome Extension
+- node
+
+### Getting Started
+
+- npm run clean
+- npm run prepare
+- npm run start
