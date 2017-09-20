@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Chrome Extension - Browser Action</title>
+    <link href="./common.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+
+    <h4>Get Open Graph Info</h4>
+
+    <form id="og-form">
+      <input type="url" id="url" name="url" value="https://www.yieldbot.com/">
+      <button type="submit">Go</button>
+    </form>
+    <pre id="result"></pre>
+
+    <script src="./lib/jquery-1.11.3.min.js"></script>
+    <script src="./lib/lodash.min.js"></script>
+    <script src="./browser_action.index.js"></script>
+
+  </body>
+</html>
